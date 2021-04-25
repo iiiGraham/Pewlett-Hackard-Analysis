@@ -1,10 +1,42 @@
-"dept_no","dept_name"
-"d001","Marketing"
-"d002","Finance"
-"d003","Human Resources"
-"d004","Production"
-"d005","Development"
-"d006","Quality Management"
-"d007","Sales"
-"d008","Research"
-"d009","Customer Service"
+dept_no,dept_name,,,,
+d001,Marketing,,,,Departments
+d002,Finance,,,,-
+d003,Human Resources,,,,dept_no varchar pk
+d004,Production,,,,dept_name varchar
+d005,Development,,,,
+d006,Quality Management,,,,Dept_Emp
+d007,Sales,,,,-
+d008,Research,,,,emp_no int pk
+d009,Customer Service,,,,dept_no int
+,,,,,from_date date
+,,,,,to_date date
+,,,,,
+,,,,,Dept_Manager
+,,,,,-
+,,,,,dept_no int pk
+,,,,,emp_no int
+,,,,,from_date date
+,,,,,to_date date
+,,,,,
+,,,,,Employees
+,,,,,-
+,,,,,emp_no int pk
+,,,,,birth_date date
+,,,,,first_name varchar
+,,,,,last_name varchar
+,,,,,gender varchar
+,,,,,hire_date date
+,,,,,
+,,,,,Salaries
+,,,,,-
+,,,,,emp_no int pk
+,,,,,salary float
+,,,,,from_date date
+,,,,,to_date date
+,,,,,
+,,,,,Titles
+,,,,,-
+,,,,,emp_no int pk
+,,,,,title varchar
+,,,,,from_date date
+,,,,,to_date date
