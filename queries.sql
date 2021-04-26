@@ -150,3 +150,46 @@ ON (ce.emp_no = de.emp_no)
 INNER JOIN departments as d
 ON (d.dept_no = de.dept_no)
 WHERE d.dept_name IN ('Sales', 'Development'); -- here we needed to reference the column name in the table that we wanted and then specify the specific datapoints that we wanted to pull. When we specify Sales and Development we are saying go look in dept_name and find everything that has those values within that column paired with the rest of our query. 
+
+-- using DISTINCT ON
+SELECT DISTINCT ON(emp_no) 
+		rt.emp_no,
+        rt.first_name,
+        rt.last_name,
+		rt.title
+INTO unique_titles
+FROM retirement_titles as rt
+-- INNER JOIN retirement_titles as rt
+-- ON (e.emp_no = t.emp_no)
+-- WHERE (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
+ORDER BY rt.emp_no, to_date DESC  
+--AND by the last date to_date of the most recent title
+-- Use DISTINCT ON to remove duplicate rows
+
+-- get count of titles from uniqe titles table
+SELECT COUNT(title), title
+INTO retiring_titles
+FROM unique_titles as ut
+-- LEFT JOIN titles as t
+-- -- ON (t.title = ut.title)
+GROUP BY ut.title
+ORDER BY COUNT DESC;
+
+-- Join emp_info with salary information
+SELECT DISTINCT ON(emp_no)
+		e.emp_no,
+		e.first_name,
+		e.last_name,
+		e.birth_date,
+		de.from_date,
+		de.to_date,
+		t.title
+INTO mentorship_eligibility
+FROM employees as e
+INNER JOIN dept_employees as de
+ON (e.emp_no = de.emp_no)
+AND (de.to_date = '9999-01-01')
+INNER JOIN titles as t
+ON (e.emp_no = t.emp_no)
+WHERE (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER BY e.emp_no ASC;
