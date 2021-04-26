@@ -35,22 +35,24 @@ CREATE TABLE salaries (
   PRIMARY KEY (emp_no)
 );
 
+-- had an error on first import attempt because of dupe employee numbers. Think about how the data might be laid out. In this scenario employees were in multiple places because they may have moved between departments during their career.
 CREATE TABLE dept_employees (
   emp_no INT NOT NULL,
-  dept_no VARCHAR NOT NULL,
+  dept_no VARCHAR(4) NOT NULL,
   from_date DATE NOT NULL,
   to_date DATE NOT NULL,
   FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
-  PRIMARY KEY (emp_no)
+  PRIMARY KEY (emp_no, dept_no)
 );
 
-CREATE TABLE titles (
-  emp_no INT NOT NULL,
-  title VARCHAR NOT NULL,
-  from_date DATE NOT NULL,
-  to_date DATE NOT NULL,
-  FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
-  PRIMARY KEY (emp_no)
+-- Check on this one in office hours - I needed to add a third primary key. That seems like a lot. Is there a better way to do this?
+CREATE TABLE titles(
+	emp_no INT NOT NULL,
+	title VARCHAR NOT NULL,
+	from_date DATE NOT NULL,
+	to_date DATE NOT NULL,
+	FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
+	PRIMARY KEY (emp_no, title, to_date)
 );
 
 SELECT * FROM employees;
